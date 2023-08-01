@@ -10,20 +10,39 @@ class CRUDModel extends Model
     public function estudiantes()
     {
         $estudiantedb = $this->db->query('select * from estudiante');
-        return $estudiantedb->getResult(); //GetResult devuelve los valores con objetos
+        return $estudiantedb->getResult(); //GetResult devuelve los valores en un objetos
     }
-    
-    public function insertar($datos){
+
+    public function insertar($datos)
+    {
 
         $estudiantedb = $this->db->table('estudiante');
         $estudiantedb->insert($datos);
 
-        return $this->db->insertID();        
+        return $this->db->insertID();
     }
 
-    public function obtenerID($data) {
+    public function obtenerID($id)
+    {
         $estudiantedb = $this->db->table('estudiante');
-        $estudiantedb->where($data);
+        $estudiantedb->where($id);
         return $estudiantedb->get()->getResultArray();
+    }
+
+    public function actualizar($id, $datos)
+    {
+
+        $estudiantedb = $this->db->table('estudiante');
+        $estudiantedb->set($datos);
+        $estudiantedb->where('idEstudiante', $id);
+
+        return $estudiantedb->update();
+    }
+
+    public function borrar($id){
+        $estudiantedb = $this->db->table('estudiante');
+        $estudiantedb->where('idEstudiante', $id);
+
+        return $estudiantedb->delete();
     }
 }

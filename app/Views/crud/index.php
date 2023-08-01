@@ -32,23 +32,23 @@
       <h3 class="font-weight-bold">Registro de estudiante</h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombreInput" name="nombre">
+        <input type="text" class="form-control" id="nombreInput" name="nombre" maxlength="20">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Apellidos</label>
-        <input type="text" class="form-control" id="apellidoInput" name="apellido">
+        <input type="text" class="form-control" id="apellidoInput" name="apellido" maxlength="30">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Cedula</label>
-        <input type="text" class="form-control" id="cedulaInput" name="cedula">
+        <input type="text" class="form-control" id="cedulaInput" name="cedula" minlength="7" maxlength="10" pattern="^[0-9]*$">
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Correo</label>
-        <input type="text" class="form-control" id="correoInput" name="correo">
+        <input type="email" class="form-control" id="correoInput" name="correo" maxlength="30">
       </div>
 
       <div class="">
-        <button type="submit" class="btn btn-primary mt-3" name="btnRegistrar">Registrar</button>
+        <button type="submit" class="btn btn-primary mt-3" name="btnRegistrar" onclick="return validacionCorreo()">Registrar</button>
       </div>
 
     </form>
@@ -80,38 +80,66 @@
               <td><?= $key->correo ?></td>
               <td><?= $key->fechaIngreso ?></td>
               <td>
-                <a class="btn btn-info p-1" href="<?= base_url() . '/obtenerID/'.$key->idEstudiante ?>">Editar</a>
-                <a class="btn btn-danger p-1" href="<?= base_url() . '/eliminar/'.$key->idEstudiante ?>" onclick="return opcion()">Eliminar</a>
+                <a class="btn btn-info p-1" href="<?= base_url() . '/obtenerID/' . $key->idEstudiante ?>">Editar</a>
+                <a class="btn btn-danger p-1" href="<?= base_url() . '/eliminar/' . $key->idEstudiante ?>" onclick="return opcion()">Eliminar</a>
               </td>
             <?php endforeach; ?>
             </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 
+  <script src="../../../public/js/validaciones.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
   <script>
     function opcion() {
+
       let resultado = window.confirm('Esta seguro de borrar este registro?');
       if (resultado === true) {
-        alert("El registro ha sido eliminado");
         return true;
       } else
         return false;
     };
-  </script>
-  <script type="text/javascript">
-    let mensaje= '<?= $mensaje ?>';
-    if (mensaje == '1') {
-      swal(':)', 'Registro realizado con exito', 'success');
-      // alert("Registro realizado con exito");
-    } else if (mensaje == '1') {
-      swal(':(', 'No se ha podido registrar', 'error');
-      // alert("No se ha podido registrar");
-    }
 
+  //   function validacionCorreo() {
+  //     valor = document.getElementById("correoInput").value;
+  //     if (!/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(valor)) {
+  //       alert('Formato invalido')
+  //       return false;
+  //     }else{
+  //       return true;
+  //     }
+  //   }
+  // </script>
+
+  <script type="text/javascript">
+    let mensaje = '<?= $mensaje ?>';
+
+    switch (mensaje) {
+      case 'vacio':
+        swal(':|', 'Hay campos vacios', 'info');
+        break;
+      case '0':
+        swal(':(', 'No se ha podido registrar', 'error');
+        break;
+      case '1':
+        swal(':)', 'Registro realizado con exito', 'success');
+        break;
+      case '2':
+        swal(':)', 'Estudiante actualizado con exito', 'success');
+        break;
+      case '3':
+        swal(':(', 'No se ha podido actualizar', 'error');
+        break;
+      case '4':
+        swal(':)', 'Estudiante borrado con exito', 'success');
+        break;
+      case '5':
+        swal(':(', 'No se ha podido borrar', 'error');
+        break;
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>

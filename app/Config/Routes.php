@@ -38,9 +38,9 @@ $routes->add('/hola', 'ContactoController::otraPagina');
 $routes->post('/metodoPOST', 'ContactoController::metodoPOST');
 $routes->add('/CRUD', 'CRUDController::index');
 $routes->post('/crear', 'CRUDController::crear');
-$routes->get('/CRUD/actualizar', 'CRUDController::actualizar');
-$routes->get('/obtenerID(:any)', 'CRUDController::obtenerID/$1');
-$routes->get('/eliminar(:any)', 'CRUDController::eliminar/$1');
+$routes->post('/actualizar', 'CRUDController::actualizar');
+$routes->get('/obtenerID/(:any)', 'CRUDController::obtenerID/$1');
+$routes->get('/eliminar/(:any)', 'CRUDController::eliminar/$1');
 
 
 /*
