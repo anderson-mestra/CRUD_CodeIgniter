@@ -31,8 +31,10 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->post('/prueba', 'Home::prueba');
+
 $routes->get('/', 'Home::index');
-$routes->add('/nuevo', 'Home::nuevo');
+$routes->post('/login', 'Home::login');
 $routes->add('/contacto', 'ContactoController::index');
 $routes->add('/hola', 'ContactoController::otraPagina');
 $routes->post('/metodoPOST', 'ContactoController::metodoPOST');

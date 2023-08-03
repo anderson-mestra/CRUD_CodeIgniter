@@ -32,20 +32,28 @@ class CRUDController extends BaseController
             'correo' => $_POST['correo']
         ];
 
-        if (!empty($_POST['nombre']) and !empty($_POST['apellido']) and !empty($_POST['cedula']) and !empty($_POST['correo'])) {
+        if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['cedula']) && !empty($_POST['correo'])) {
             //Instancio el modelo y el metodo insertar para la insercion de datos
             $crud = new CRUDModel();
-            $respuesta = $crud->insertar($datos);
 
-            //Se realiza una redirección a la página principal del sitio y envía un mensaje flash de sesión con un valor numérico
+            $validarCed = $crud->validarCedula($_POST['cedula']);
 
-            if ($respuesta > 0) {
-                return redirect()->to(base_url() . '/CRUD')->with('mensaje', '1');
-            } else {
-                return redirect()->to(base_url() . '/CRUD')->with('mensaje', '0');
+            //Valida si hay algun valor en la busqueda de la cedula que se ha ingresado en el formulario
+            if (!empty($validarCed)) {
+                return redirect()->to(base_url() . '/CRUD')->with('mensaje', 'cedRep');
             }
-        }
-        else{
+             else {
+                //Se realiza una redirección a la página principal del sitio y envía un mensaje flash de sesión con un valor numérico
+                $respuesta = $crud->insertar($datos);
+
+                //Si en la respuesta devuelve algun indice envia uno u otro mensaje
+                if ($respuesta > 0) {
+                    return redirect()->to(base_url() . '/CRUD')->with('mensaje', '1');
+                } else {
+                    return redirect()->to(base_url() . '/CRUD')->with('mensaje', '0');
+                }
+            }
+        } else {
             return redirect()->to(base_url() . '/CRUD')->with('mensaje', 'vacio');
         }
     }
@@ -95,7 +103,5 @@ class CRUDController extends BaseController
         } else {
             return redirect()->to(base_url() . '/CRUD')->with('mensaje', '5');
         }
-
-        echo 'Eliminado!';
     }
 }

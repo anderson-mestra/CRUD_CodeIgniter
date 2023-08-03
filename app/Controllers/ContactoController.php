@@ -17,7 +17,7 @@ class ContactoController extends BaseController
         ];
 
         $pagina = view('contacto/header') .
-            view('contacto/nav') . 
+            view('contacto/nav') .
             view('contacto/inicio') .
             view('contacto/card', $datos) .
             view('contacto/footer');

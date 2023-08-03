@@ -13,6 +13,13 @@ class CRUDModel extends Model
         return $estudiantedb->getResult(); //GetResult devuelve los valores en un objetos
     }
 
+    public function validarCedula($ced){
+        $estudiantedb = $this->db->query("select * from estudiante where cedula = '$ced'");
+
+        return $estudiantedb->getResult();
+
+    }
+
     public function insertar($datos)
     {
 
