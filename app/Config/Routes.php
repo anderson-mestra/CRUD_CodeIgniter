@@ -34,7 +34,10 @@ $routes->setAutoRoute(true);
 $routes->post('/prueba', 'Home::prueba');
 
 $routes->get('/', 'Home::index');
+$routes->get('/registro', 'Home::registro');
+$routes->post('/registrar', 'Home::registrar');
 $routes->post('/login', 'Home::login');
+$routes->get('/salir', 'Home::salir');
 $routes->add('/contacto', 'ContactoController::index');
 $routes->add('/hola', 'ContactoController::otraPagina');
 $routes->post('/metodoPOST', 'ContactoController::metodoPOST');

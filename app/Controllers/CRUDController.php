@@ -13,13 +13,22 @@ class CRUDController extends BaseController
         $dato = $crud->estudiantes();
 
         $mensaje = session('mensaje');
+        
+        //Cambio el formato de la fecha a los registros de la db
+        foreach ($dato as $key) {
+            $fechadb = strtotime($key->fechaIngreso);
+            $fecha = date('m-d-Y', $fechadb);
+            $key->fechaIngreso = $fecha;
+        }
 
         $data = [
             'datos' => $dato,
             'mensaje' => $mensaje
         ];
 
-        return view('crud/index', $data);
+        echo view('templates/header');
+        echo view('crud/index', $data);
+        echo view('templates/footer');
     }
 
     public function crear()
@@ -40,22 +49,24 @@ class CRUDController extends BaseController
 
             //Valida si hay algun valor en la busqueda de la cedula que se ha ingresado en el formulario
             if (!empty($validarCed)) {
-                return redirect()->to(base_url() . '/CRUD')->with('mensaje', 'cedRep');
+                $return = redirect()->to(base_url() . '/CRUD')->with('mensaje', 'cedRep');
             }
              else {
                 //Se realiza una redirección a la página principal del sitio y envía un mensaje flash de sesión con un valor numérico
                 $respuesta = $crud->insertar($datos);
 
-                //Si en la respuesta devuelve algun indice envia uno u otro mensaje
+                //Si en la respuesta devuelve algun indice se muestra si se hizo la insercion
                 if ($respuesta > 0) {
-                    return redirect()->to(base_url() . '/CRUD')->with('mensaje', '1');
+                    $return = redirect()->to(base_url() . '/CRUD')->with('mensaje', '1');
                 } else {
-                    return redirect()->to(base_url() . '/CRUD')->with('mensaje', '0');
+                    $return = redirect()->to(base_url() . '/CRUD')->with('mensaje', '0');
                 }
             }
         } else {
-            return redirect()->to(base_url() . '/CRUD')->with('mensaje', 'vacio');
+            $return = redirect()->to(base_url() . '/CRUD')->with('mensaje', 'vacio');
         }
+
+        return $return;
     }
 
     public function obtenerID($idEstudiante)
