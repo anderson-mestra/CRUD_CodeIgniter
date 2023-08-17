@@ -8,8 +8,8 @@ const dataTableOptions = {
   destroy: true,
   responsive: true,
   columnDefs: [
-    { orderable: false, targets: [6] }, //Desabilita que columna podra ordenarse
-    // { width: "20%", targets: [4] },
+    { orderable: false, targets: [6] }, //Deshabilita que columna podra ordenarse
+    // { width: "50%", targets: [4] },
   ],
 };
 

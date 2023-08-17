@@ -1,1 +1,2 @@
-<h1><?= var_dump($datos) ?></h1>
+<?php var_dump($datos) ?>
+

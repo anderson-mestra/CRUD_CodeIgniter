@@ -1,4 +1,6 @@
 <header>
+
+
   <div class="container-fluid">
     <div class="row align-items-center">
       <div class="col">
@@ -7,6 +9,8 @@
       <div class="col-8">
         <h1 class="text-center p-2">Hola, <?= session('usuario') ?></h1>
       </div>
+      
+      <!-- Boton de cierre sesion -->
       <div class="col d-flex justify-content-end">
         <a href="<?= base_url() . '/salir' ?>" class="btn btn-dark">Cerrar Sesion</a>
       </div>

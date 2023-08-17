@@ -21,9 +21,4 @@ class LoginModel extends Model
         return $usuario->insert($datos);
     }
 
-    public function verificarUserRep($usuario) {
-        $usuario = $this->db->table('login');
-
-        return $usuario->where('usuario', $usuario);
-    }
 }
